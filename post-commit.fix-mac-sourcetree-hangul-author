@@ -1,0 +1,16 @@
+#!/bin/bash
+
+file="$HOME/.gitauthor"
+name=$(tail -2 $file | head -1)
+email=$(tail -1 $file)
+lastName=$(git log -1 HEAD --pretty=format:"%an")
+
+if [ "$name" != "$lastName" ]; then
+	echo "Change a author"
+	export GIT_AUTHOR_NAME="$name"
+	export GIT_AUTHOR_EMAIL="$email"
+	export GIT_COMMITTER_NAME="$name"
+	export GIT_COMMITTER_EMAIL="$email"
+	git commit --amend --reset-author --no-edit
+fi
+
