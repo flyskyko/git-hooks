@@ -4,6 +4,9 @@ file="$HOME/.gitauthor"
 export NEW_NAME=$(head -1 $file)
 export NEW_EMAIL=$(head -2 $file | tail -1)
 
+git config user.name "$NEW_NAME"
+git config user.email "$NEW_EMAIL"
+
 git filter-branch -f --env-filter '
 	export GIT_AUTHOR_NAME="$NEW_NAME"
 	export GIT_AUTHOR_EMAIL="$NEW_EMAIL"
